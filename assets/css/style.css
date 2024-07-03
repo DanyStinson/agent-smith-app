@@ -1,0 +1,94 @@
+body {
+    background-color: black;
+  }
+
+textarea {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@font-face {
+  font-family: 'MatrixFont';
+  src: url('../fonts/matrix-font.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'MatrixFont2';
+  src: url('../fonts/whitrabt.ttf') format('truetype');
+}
+
+.matrix-text {
+  font-family: 'MatrixFont', monospace;
+  font-size: 24px; /* Adjust the font size as needed */
+  letter-spacing: 1px; /* Adjust letter spacing as needed */
+  color: #00ff00; /* Optionally set a color (green in this case) */
+}
+
+.matrix-text-2 {
+  font-family: 'MatrixFont2', monospace;
+  letter-spacing: 1px; /* Adjust letter spacing as needed */
+  color: white; /* Optionally set a color (green in this case) */
+}
+
+.typewriter {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end;
+}
+
+.typewriter2 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #00ff00; }
+}
+
+.photo_border{
+  background:
+    linear-gradient(to right, green 2px, transparent 4px) 0 0,
+    linear-gradient(to right, green 2px, transparent 4px) 0 100%,
+    linear-gradient(to left, green 2px, transparent 4px) 100% 0,
+    linear-gradient(to left, green 2px, transparent 4px) 100% 100%,
+    linear-gradient(to bottom, green 2px, transparent 4px) 0 0,
+    linear-gradient(to bottom, green 2px, transparent 4px) 100% 0,
+    linear-gradient(to top, green 2px, transparent 4px) 0 100%,
+    linear-gradient(to top, green 2px, transparent 4px) 100% 100%;
+
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
+.animate-delay {
+  animation-delay: 1s;
+}
