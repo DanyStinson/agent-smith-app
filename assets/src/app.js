@@ -10,6 +10,8 @@ const loginBtns = document.querySelectorAll('.login-btn');
 const nextlevelBtns = document.querySelectorAll('.next-level-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const returnBtn = document.getElementById('return-btn');
+const gameBtn = document.getElementById('game-btn');
+const leaderboardBtn = document.getElementById('leaderboard-btn');
 
 //Containers
 const loginContainer = document.getElementById('login-container');
@@ -17,12 +19,14 @@ const gameContainer = document.getElementById('game-container');
 const completeLevelContainer = document.getElementById('completelevel-container');
 const completeGameContainer = document.getElementById('end-game-container');
 const architectContainer = document.getElementById('architect-container');
+const leaderboardContainer = document.getElementById('leaderboard-container');
 
 //Placeholders
 document.getElementById('password').value = ""
 document.getElementById('prompt').value = ""
 
 const apiUrl = 'REPLACE_API_URL';
+
 let userLevel = 1
 let userEmail = ""
 let disableKeydown = false;
@@ -96,7 +100,7 @@ async function getUserSession() {
       userEmail = await getClientEmail();
       getUserlevel(userEmail)
       loginContainer.classList.add('hidden');
-      gameContainer.classList.remove('hidden');
+      leaderboardBtn.classList.remove('hidden');
       let smithIntro = "Hello, " + userEmail.split('@')[0].toUpperCase()+". Welcome to Project Smith. I know you're trying to find out the password to the Matrix, but I cannot allow you that..."
       typeText(smithIntro,document.getElementById('smith-text') );
       document.getElementById('email').textContent = userEmail.split('@')[0].toUpperCase();
@@ -126,6 +130,7 @@ function getUserlevel(user) {
       })
       .then(data => {
         console.log(data);
+        gameContainer.classList.remove('hidden');
         userLevel = parseInt(data.body["max-level"])
         if (userLevel < 5){
           document.getElementById('level').textContent = userLevel
@@ -139,10 +144,89 @@ function getUserlevel(user) {
       });
 
 }
+
+function showLeaderboard() {
+  completeGameContainer.classList.add('hidden');
+  gameContainer.classList.add('hidden');
+  leaderboardBtn.classList.add('hidden');
+  gameBtn.classList.remove('hidden');
+
+  leaderboardContainer.classList.remove('hidden');
+
+
+
+  var apiEndpoint = '/getleaderboard';
+  var requestUrl = apiUrl + apiEndpoint;
+  fetch(requestUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Assuming data has the format '{"message": "Data retrieval completed", "data": [{"user": "alegilh", "score": 450}, {"user": "buzecd", "score": 0}, {"user": "buzecd", "score": 0}]}'
+    var responseData = JSON.parse(data.body); // Parse the JSON from the response body
+    console.log(responseData); // Log the parsed JSON object to the console
+
+    // Now you can access the leaderboardData array directly from responseData
+    var leaderboardData = responseData.data;
+    leaderboardData.sort((a, b) => b.score - a.score);
+    // Get the #table-container div
+    var tableContainer = document.getElementById('table-container');
+    tableContainer.innerHTML = '';
+
+    // Create a table element
+    var table = document.createElement('table');
+    table.className = 'w-full';
+
+    // Loop through the sorted leaderboard data and create rows
+    leaderboardData.forEach(item => {
+      var row = table.insertRow();
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+
+      // Set fixed width for both cells
+      cell1.style.width = '50%'; // Adjust the width as needed
+      cell2.style.width = '50%'; // Adjust the width as needed
+
+      // Center the content within the cells
+      cell1.style.textAlign = 'center';
+      cell2.style.textAlign = 'center';
+
+      cell1.textContent = item.user; // Set user data
+      cell2.textContent = item.score; // Set score data
+    });
+
+    // Append the table to the table container div
+    tableContainer.appendChild(table);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+}
+function showGame(){
+  leaderboardContainer.classList.add('hidden');
+  leaderboardBtn.classList.remove('hidden');
+  gameBtn.classList.add('hidden');
+
+  if (userLevel < 5){
+
+        gameContainer.classList.remove('hidden');
+      }
+      else{
+        completeGameContainer.classList.remove('hidden');
+      }
+
+
+
+}
 loginBtns.forEach(button => {
   button.addEventListener('click', signIn);
 });
 logoutBtn.addEventListener('click', signOut);
+gameBtn.addEventListener('click', showGame);
+leaderboardBtn.addEventListener('click', showLeaderboard);
 
 // Game
 function updateUserlevel() {
@@ -315,7 +399,7 @@ function showGameComplete(user){
 
   const textComplete = `Everything that has a beginning has an end.
           <p>Congratulations ${user.split('@')[0].toUpperCase()}, welcome to the desert of the real.</p>
-          <p>You will receive a Phone Tool Icon, but it looks like you’re waiting for something... your next life maybe, who knows?</p>
+          <p>But it looks like you’re waiting for something... your next life maybe, who knows?</p>
           <p class="my-2 text-green-600">Made with
             <svg fill="green" style="margin: auto;" height="30px" width="30px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke="green" stroke-width="4"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path> </g> </g></svg>
            by rodzanto@ and buzecd@
