@@ -38,15 +38,7 @@ module.exports = {
         generator: {
           filename: 'fonts/[name][ext]'
         }
-      },
-      {
-        test: /\.mp3$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'audio/[name][ext]'
-        }
       }
-
     ]
   },
   devServer: {
@@ -63,8 +55,7 @@ module.exports = {
         { from: 'src/images', to: 'images' },
         { from: 'src/css', to: 'css' },
         { from: 'src/fonts', to: 'fonts' },
-        { from: 'src/js', to: 'js' },
-        { from: 'src/audio', to: 'audio' },
+        { from: 'src/js', to: 'js' }
 
       ]
     }),
