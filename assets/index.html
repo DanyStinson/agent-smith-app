@@ -15,15 +15,18 @@
     <div class="text-5xl matrix-text" style="color:#008F11">
       <h1 class="typewriter"> AGENT SMITH</h1>
     </div>
-    <div>
+    <div class="flex items-center"> <!-- Updated this line -->
+      <button id="leaderboard-btn" class="matrix-text-3 hover:text-gray-300 mr-8 hidden">Leaderboard</button> <!-- Added margin right -->
+      <button id="game-btn" class="matrix-text-3 hover:text-gray-300 mr-8 hidden">Game</button> <!-- Added margin right -->
       <img src="images/aws.png" class="w-20 h-auto" alt="AWS_LOGO">
     </div>
   </div>
 </header>
+
 <body>
 <canvas id="c"></canvas>
 
-<div id="login-container" class="flex flex-col justify-center items-center h-screen" style="margin-top: calc(-100vh - 100px);">
+<div id="login-container" class="flex flex-col justify-center items-center h-screen " style="margin-top: calc(-100vh - 100px);">
   <div class="max-w-4xl w-full p-6 rounded-lg shadow-md" style="background-color: rgba(13, 13, 13, 0.82);">
     <!-- Morpheus-->
     <div class="flex">
@@ -188,18 +191,26 @@
     </div>
   </div>
 </div>
+<div id="leaderboard-container" class="flex flex-col justify-center items-center h-screen hidden" style="margin-top: calc(-100vh - 200px);">
+  <div class="max-w-4xl w-full p-6 rounded-lg shadow-md" style="background-color: rgba(13, 13, 13, 0.82);">
+    <!-- Morpheus-->
+    <div class="flex">
+      <!-- Second Column - Name and Text Area -->
+      <div class="flex-1">
+        <div class="pl-3 p-1 matrix-text-3 text-center" style="background-color: rgba(255, 255, 255, 0.08);">
+          LEADERBOARD
+        </div>
+        <div id="table-container" class="bg-black text-white p-4 matrix-text-2 text-center" style="max-height: 600px; overflow-y: auto;">
+          <!-- Table will be appended here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script src="main.bundle.js"></script>
 <script type="text/javascript" src="js/matrix.js"></script>
 
 </body>
-<footer class="text-white text-center mt-[-130px]">
-  <div class="flex justify-center mb-4" >
-    <audio id="audioPlayer" controls autoplay class="bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 ">
-      <source src="audio/thematrix.mp3" type="audio/mpeg">
-    </audio>
-  </div>
-
-  Amazon confidential 2023 - For questions or feedback please contact rodzanto@ or buzecd@
-</footer>
 </html>
