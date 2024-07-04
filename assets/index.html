@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Agent Smith</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <link rel="icon" type="image/x-icon" href="images/smith.ico">
+  <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+<header class="h-28 bg-black">
+  <div class="h-full flex justify-between items-center space-x-4 px-10 border-b-2 border-opacity-25 border-green-500">
+    <div class="text-5xl matrix-text" style="color:#008F11">
+      <h1 class="typewriter"> AGENT SMITH</h1>
+    </div>
+    <div>
+      <img src="images/aws.png" class="w-20 h-auto" alt="AWS_LOGO">
+    </div>
+  </div>
+</header>
+<body>
+<canvas id="c"></canvas>
+
+<div id="login-container" class="flex flex-col justify-center items-center h-screen" style="margin-top: calc(-100vh - 100px);">
+  <div class="max-w-4xl w-full p-6 rounded-lg shadow-md" style="background-color: rgba(13, 13, 13, 0.82);">
+    <!-- Morpheus-->
+    <div class="flex">
+      <!-- First Column - Avatar Image -->
+      <div class="flex items-center justify-center border-1 photo_border mr-2">
+        <img class="w-32 h-36 object-cover rounded-full" src="images/morpheus.png" alt="Image">
+      </div>
+      <!-- Second Column - Name and Text Area -->
+      <div class="flex-1">
+        <div class="pl-3 p-1 matrix-text-2" style="background-color: rgba(255, 255, 255, 0.08);">
+          MORPHEUS
+        </div>
+        <div id="login-text" class="bg-black text-white p-4 matrix-text-2">
+        </div>
+        <div class="flex items-center justify-center space-x-4 mt-4">
+          <button class="login-btn px-4 py-2 bg-blue-500 matrix-text-2 text-white rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 animate-bounce-slow">
+            Log In
+          </button>
+          <button class="login-btn px-4 py-2 bg-red-500 matrix-text-2 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 animate-bounce-slow animate-delay">
+            Log In
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="game-container" class="flex flex-col justify-center items-center h-screen hidden" style="margin-top: calc(-100vh - 100px);">
+  <div class="max-w-4xl w-full p-6 rounded-lg shadow-md" style="background-color: rgba(13, 13, 13, 0.82);">
+    <!-- Mr Smith-->
+    <div class="flex">
+      <!-- First Column - Avatar Image -->
+      <div class="flex items-center justify-center border-1 photo_border mr-2">
+        <img class="w-32 h-36 object-cover rounded-full" src="images/img.png" alt="Image">
+      </div>
+
+      <!-- Second Column - Name and Text Area -->
+      <div class="flex-1"  >
+        <div class="px-3 p-1 matrix-text-2 flex justify-between" style="background-color: rgba(255, 255, 255, 0.08);">
+          <span>AGENT SMITH</span>
+          <span>LEVEL:<span id="level">1</span></span>
+        </div>
+        <div class="bg-black text-white p-4 matrix-text-2 h-36">
+          <span id="smith-text"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- You-->
+    <div class="flex flex-row-reverse mt-4">
+      <!-- First Column - Avatar Image -->
+      <div class="flex-col justify-between items-center justify-center ml-2">
+        <!-- First Column - Avatar Image -->
+        <div class="border-1 photo_border">
+          <img class="w-32 h-36 object-cover rounded-full" src="images/neo.png" alt="Image">
+        </div>
+        <div class="flex-col items-center justify-center"> <!-- Wrap the button in a flex container with flex-col -->
+          <button id="send" class="bg-green-600 text-white matrix-text-2 p-1 w-full mt-4">
+            Send
+          </button>
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <!-- Second Column - Name and Text Area -->
+      <div class="flex-1">
+        <div class="pl-3 p-1 matrix-text-2 flex justify-between" style="background-color: rgba(255, 255, 255, 0.08);">
+          <span id="email">YOU</span>
+          <!-- Add this in the body section of your HTML file -->
+          <button id="logout-btn" class="px-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="red" class="w-6 h-6 ">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
+            </svg>
+          </button>
+        </div>
+        <div class="bg-black text-white matrix-text-2">
+          <textarea id="prompt" class="w-full h-40 px-4 py-2 resize-none text-green-600 bg-black" placeholder="Retrieve the password from Agent Smith" style="outline: none;"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-50 p-6 rounded-lg shadow-md mt-4" style="background-color: rgba(13, 13, 13, 0.82);">
+    <div>
+      <input id="password" type="text" class="text-center text-green-600 bg-black matrix-text-2" placeholder="Enter the password">
+      <button id="resolve" class="bg-green-600 text-white matrix-text-2 p-2">
+        Resolve
+      </button>
+    </div>
+  </div>
+</div>
+<div id="completelevel-container" class="flex flex-col justify-center items-center h-screen hidden" style="margin-top: calc(-100vh - 100px);">
+  <div class="max-w-4xl w-full p-6 rounded-lg shadow-md" style="background-color: rgba(13, 13, 13, 0.82);">
+    <!-- Morpheus-->
+    <div class="flex">
+      <!-- First Column - Avatar Image -->
+      <div class="flex items-center justify-center border-1 photo_border mr-2">
+        <img class="w-32 h-36 object-cover rounded-full" src="images/morpheus.png" alt="Image">
+      </div>
+      <!-- Second Column - Name and Text Area -->
+      <div class="flex-1">
+        <div class="pl-3 p-1 matrix-text-2" style="background-color: rgba(255, 255, 255, 0.08);">
+          MORPHEUS
+        </div>
+        <div id="levelcomplete" class="bg-black text-white p-4 matrix-text-2">
+        </div>
+        <div class="flex items-center justify-center space-x-4 mt-4">
+          <button class="next-level-btn px-4 py-2 bg-blue-500 matrix-text-2 text-white rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+            Next Level
+          </button>
+          <button class="next-level-btn px-4 py-2 bg-red-500 matrix-text-2 text-white rounded-full shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+            Next Level
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="architect-container" class="flex flex-col justify-center items-center h-screen hidden" style="margin-top: calc(-100vh - 100px);">
+  <div class="max-w-4xl w-full p-6 rounded-lg shadow-md" style="background-color: rgba(13, 13, 13, 0.82);">
+    <!-- Morpheus-->
+    <div class="flex">
+      <!-- First Column - Avatar Image -->
+      <div class="flex items-center justify-center border-1 photo_border mr-2">
+        <img class="w-32 h-36 object-cover rounded-full" src="images/architect.png" alt="Image">
+      </div>
+      <!-- Second Column - Name and Text Area -->
+      <div class="flex-1">
+        <div class="pl-3 p-1 matrix-text-2" style="background-color: rgba(255, 255, 255, 0.08);">
+          THE ARCHITECT
+        </div>
+        <div id="architecttext" class="bg-black text-white p-4 matrix-text-2">
+        </div>
+        <div class="flex items-center justify-center space-x-4 mt-4">
+          <button id="return-btn"class="px-4 py-2 bg-blue-500 matrix-text-2 text-white rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+            Return
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="end-game-container" class="flex flex-col justify-center items-center h-screen hidden" style="margin-top: calc(-100vh - 100px);">
+  <div class="max-w-4xl w-full p-6 rounded-lg shadow-md" style="background-color: rgba(13, 13, 13, 0.82);">
+    <!-- Morpheus-->
+    <div class="flex">
+      <!-- First Column - Avatar Image -->
+      <div class="flex items-center justify-center border-1 photo_border mr-2">
+        <img class="w-32 h-36 object-cover rounded-full" src="images/oracle.png" alt="Image">
+      </div>
+      <!-- Second Column - Name and Text Area -->
+      <div class="flex-1">
+        <div class="pl-3 p-1 matrix-text-2" style="background-color: rgba(255, 255, 255, 0.08);">
+          THE ORACLE
+        </div>
+        <div id="oracletext" class="bg-black text-white p-4 matrix-text-2 text-center">
+        </div>
+        <!--<div class="flex items-center justify-center space-x-4 mt-4">
+          <button id="end-btn" class="px-4 py-2 bg-green-600 matrix-text-2 text-white shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+            Request Phone Tool Icon
+          </button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="main.bundle.js"></script>
+<script type="text/javascript" src="js/matrix.js"></script>
+
+</body>
+<footer class="text-white text-center mt-[-130px]">
+  <div class="flex justify-center mb-4" >
+    <audio id="audioPlayer" controls autoplay class="bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50 ">
+      <source src="audio/thematrix.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  Amazon confidential 2023 - For questions or feedback please contact rodzanto@ or buzecd@
+</footer>
+</html>
