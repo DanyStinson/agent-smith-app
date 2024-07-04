@@ -22,7 +22,7 @@ const architectContainer = document.getElementById('architect-container');
 document.getElementById('password').value = ""
 document.getElementById('prompt').value = ""
 
-const apiUrl = 'https://puhkln3xc9.execute-api.us-west-2.amazonaws.com';
+const apiUrl = 'REPLACE_API_URL';
 let userLevel = 1
 let userEmail = ""
 let disableKeydown = false;
@@ -108,7 +108,7 @@ async function getUserSession() {
   }
 }
 function getUserlevel(user) {
-  var apiEndpoint = '/prod/getuserlevel';
+  var apiEndpoint = '/getuserlevel';
   var requestUrl = apiUrl + apiEndpoint;
   var requestBody = ""
   requestBody = JSON.stringify({
@@ -147,7 +147,7 @@ logoutBtn.addEventListener('click', signOut);
 // Game
 function updateUserlevel() {
   startAnimateText(resolveBtn, "Resolve")
-  var apiEndpoint = '/prod/updateuserlevel';
+  var apiEndpoint = '/updateuserlevel';
   var requestUrl = apiUrl + apiEndpoint;
   var requestBody = ""
   requestBody = JSON.stringify({
@@ -198,7 +198,7 @@ function callLevel() {
   document.getElementById('smith-text').textContent = "";
   typeText("Hmm...", document.getElementById('smith-text'))
   startAnimateText(sendBtn, "Send")
-  var apiEndpoint = '/prod/level' + userLevel;
+  var apiEndpoint = '/level' + userLevel;
   var requestUrl = apiUrl + apiEndpoint;
   var requestBody = JSON.stringify({
     "user": userEmail,
