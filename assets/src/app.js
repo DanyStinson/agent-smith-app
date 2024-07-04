@@ -419,8 +419,6 @@ function hideGameComplete(){
 }
 // Start
 window.onload = function () {
-  const audioPlayer = document.getElementById('audioPlayer');
-  audioPlayer.volume = 0.25; // Set volume to 25% (0.25)
   typeText("I can only show you the form. You're the one that has to Log In....", document.getElementById('login-text'))
   getUserSession()
 };
